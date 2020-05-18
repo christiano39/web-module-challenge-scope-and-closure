@@ -146,4 +146,4 @@ function scoreboard(inning, innings) {
 
 }
 
-console.log(scoreboard(inning, 35));
+//console.log(scoreboard(inning, 35));
