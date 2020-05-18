@@ -63,7 +63,7 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(){
+const inning = function() {
   return Math.floor(Math.random()*3);
 }
 
@@ -146,4 +146,4 @@ function scoreboard(inning, innings) {
 
 }
 
-//console.log(scoreboard(inning, 35));
+console.log(scoreboard(inning, 35));
