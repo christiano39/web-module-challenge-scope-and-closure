@@ -125,8 +125,9 @@ function scoreboard(inning, innings) {
   let homeScore = 0;
   let awayScore = 0;
   let game = {};
+  let i = 0;
 
-  for (let i = 0; i < innings; i++) {
+  while(i < innings || homeScore === awayScore) {
     homeScore += inning();
     awayScore += inning();
     if ([...(i + 1).toString()].pop() === '1' && (i + 1) !== 11){
@@ -138,6 +139,7 @@ function scoreboard(inning, innings) {
     } else {
       game[`${i + 1}th inning`] = `${homeScore} - ${awayScore}`;
     }
+    i++;
   }
 
   game["Final score"] = `${homeScore} - ${awayScore}`;
@@ -146,4 +148,4 @@ function scoreboard(inning, innings) {
 
 }
 
-//console.log(scoreboard(inning, 35));
+console.log(scoreboard(inning, 9));
