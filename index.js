@@ -28,9 +28,16 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * counter1 is returning a function that can increment the count, while counter2 is just incrementing the global count variable.
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * counter1 is using a closure because it is returning a function that has access to the parent function scope, which can maintain that data from the parent function after it has run.
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * 
+ * counter1 would be preferable if you don't want any other parts of your program to manipulate your counter, and also it would be much easier to create multiple counters for various things.
+ * counter2 might be better if you had a simple program that only needs one counter, and if it needed to be changed by other parts of your program.
  *
 */
 
@@ -56,10 +63,8 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+const inning = function() {
+  return Math.floor(Math.random()*3);
 }
 
 /* Task 3: finalScore()
@@ -76,11 +81,23 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(inning, innings){
 
-  /*Code Here*/
+  let homeScore = 0;
+  let awayScore = 0;
+  for (i = 0; i < innings; i++){
+    homeScore += inning();
+    awayScore += inning();
+  }
+
+  return {
+    home: homeScore,
+    away: awayScore,
+  }
 
 }
+
+//console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -103,8 +120,32 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(inning, innings) {
+  
+  let homeScore = 0;
+  let awayScore = 0;
+  let game = {};
+  let i = 0;
+
+  while(i < innings || homeScore === awayScore) {
+    homeScore += inning();
+    awayScore += inning();
+    if ([...(i + 1).toString()].pop() === '1' && (i + 1) !== 11){
+      game[`${i + 1}st inning`] = `${homeScore} - ${awayScore}`;
+    } else if ([...(i + 1).toString()].pop() === '2' && (i + 1) !== 12) {
+      game[`${i + 1}nd inning`] = `${homeScore} - ${awayScore}`;
+    } else if ([...(i + 1).toString()].pop() === '3' && (i + 1) !== 13) {
+      game[`${i + 1}rd inning`] = `${homeScore} - ${awayScore}`;
+    } else {
+      game[`${i + 1}th inning`] = `${homeScore} - ${awayScore}`;
+    }
+    i++;
+  }
+
+  game["Final score"] = `${homeScore} - ${awayScore}`;
+
+  return game;
+
 }
 
-
+console.log(scoreboard(inning, 9));
